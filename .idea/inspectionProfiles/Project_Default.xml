@@ -1,0 +1,23 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="loadui.UI.clicked" />
+          <option value="loadui.UI.text" />
+          <option value="loadui.UI.addItem" />
+          <option value="loadui.UI.setText" />
+          <option value="loadui.UI.currentRow" />
+          <option value="loadui.UI.takeItem" />
+          <option value="loadui.UI.clear" />
+          <option value="loadui.CreateAccount.setEchoMode" />
+          <option value="PyQt5.QtWidgets.QLineEdit.Password" />
+          <option value="loadui.CreateAccount.clicked" />
+          <option value="loadui.CreateAccount.text" />
+          <option value="loadui.CreateAccount.setText" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
