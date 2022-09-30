@@ -72,7 +72,8 @@
                     <h3 class="text-center">{{ inventory.last_sales_date }}</h3>
                 </div>
             </div>
-
+            <a class="btn btn-outline-success btn-sm mb-3" href="{% url 'update_inventory' inventory.id %}">Update Inventory</a>
+            <a class="btn btn-danger btn-sm" href="{% url 'delete_inventory' inventory.id %}">Delete Inventory</a>
         </div>
     </div>
 {% endblock %}
