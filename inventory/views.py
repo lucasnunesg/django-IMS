@@ -3,6 +3,11 @@ from .models import Inventory
 from django.contrib.auth.decorators import login_required
 from .forms import AddInventoryForm, UpdateInventoryForm
 from django.contrib import messages
+from django_pandas.io import read_frame
+import plotly
+import plotly.express as px
+import json
+
 
 @login_required
 def inventory_list(request):
@@ -66,3 +71,44 @@ def update_inventory(request, pk):
 
     context = {"form": updateForm}
     return render(request, "inventory/inventory_update.html", context=context)
+
+
+@login_required
+def dashboard(request):
+    inventories = Inventory.objects.all()
+
+    df = read_frame(inventories)
+
+    sales_graph = df.groupby(by="last_sales_date", as_index=False, sort=False)['sales'].sum()
+    sales_graph = px.line(sales_graph, x=sales_graph.last_sales_date,
+                          y=sales_graph.sales,
+                          title="Sales Trend").update_layout(xaxis_title="Sales",
+                                                             yaxis_title="Quantity Sold",
+                                                             title_x=0.5,
+                                                             xaxis=dict(tickformat="%d/%m/%y", tickmode='linear'))
+    sales_graph = json.dumps(sales_graph, cls=plotly.utils.PlotlyJSONEncoder)
+
+    best_performing_product_df = df.groupby(by="name").sum().sort_values(by="quantity_sold")
+    best_performing_product = px.bar(best_performing_product_df,
+                                     x=best_performing_product_df.index,
+                                     y=best_performing_product_df.quantity_sold,
+                                     title="Best Performing Product").update_layout(xaxis_title="Product name",
+                                                                                    yaxis_title="Quantity Sold",
+                                                                                    title_x=0.5)
+    best_performing_product = json.dumps(best_performing_product, cls=plotly.utils.PlotlyJSONEncoder)
+
+    most_product_in_stock_df = df.groupby(by="name").sum().sort_values(by="quantity_in_stock")
+    most_product_in_stock = px.pie(most_product_in_stock_df,
+                                   names=most_product_in_stock_df.index,
+                                   values=most_product_in_stock_df.quantity_in_stock,
+                                   title="Product Stock overview").update_layout(xaxis_title="Product name",
+                                                                                 yaxis_title="Quantity In Stock",
+                                                                                 title_x=0.5)
+    most_product_in_stock = json.dumps(most_product_in_stock, cls=plotly.utils.PlotlyJSONEncoder)
+
+    context = {
+        "sales_graph": sales_graph,
+        "best_performing_product": best_performing_product,
+        "most_product_in_stock": most_product_in_stock
+    }
+    return render(request, "inventory/dashboard.html", context=context)
