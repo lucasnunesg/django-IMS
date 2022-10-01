@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Inventory
 from django.contrib.auth.decorators import login_required
 from .forms import AddInventoryForm, UpdateInventoryForm
+from django.contrib import messages
 
 @login_required
 def inventory_list(request):
@@ -31,6 +32,7 @@ def add_product(request):
             new_inventory = add_form.save(commit=False)
             new_inventory.sales = float(add_form.data['cost_per_item']) * float(add_form.data['quantity_sold'])
             new_inventory.save()
+            messages.success(request, "Successfully added product!")
             return redirect("/inventory/")
     else:
         add_form = AddInventoryForm()
@@ -41,7 +43,9 @@ def add_product(request):
 def delete_inventory(request, pk):
     inventory = get_object_or_404(Inventory, pk=pk)
     inventory.delete()
+    messages.warning(request, "Successfully deleted product!")
     return redirect("/inventory/")
+
 
 @login_required
 def update_inventory(request, pk):
@@ -49,15 +53,13 @@ def update_inventory(request, pk):
     if request.method == "POST":
         updateForm = UpdateInventoryForm(data=request.POST)
         if updateForm.is_valid():
-
-            # for i in updateForm.data:
-             #   inventory.i = i
             inventory.name = updateForm.data['name']
             inventory.quantity_in_stock = updateForm.data['quantity_in_stock']
             inventory.quantity_sold = updateForm.data['quantity_sold']
             inventory.cost_per_item = updateForm.data['cost_per_item']
             inventory.sales = float(inventory.cost_per_item) * float(inventory.quantity_sold)
             inventory.save()
+            messages.success(request, "Inventory updated!")
             return redirect(f"/inventory/per_product/{pk}")
     else:
         updateForm = UpdateInventoryForm(instance=inventory)
