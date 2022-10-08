@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h5 class="cart-title text-center">Product Name</h5>
                     <div style="font-size: 30px;" class="text-center">
-                        <span><i class="fa-brands fa-product-hunt"></i></span>
+                        <span><i class="icon-shopping-cart"></i></span>
                     </div>
                     <h3 class="text-center">{{ inventory.name }}</h3>
                 </div>
@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <h5 class="cart-title text-center">Quantity in Stock</h5>
                     <div style="font-size: 30px;" class="text-center">
-                        <span><i class="fa-brands fa-warehouse"></i></span>
+                        <span><i class="icon-archive"></i></span>
                     </div>
                     <h3 class="text-center">{{ inventory.quantity_in_stock }}</h3>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <h5 class="cart-title text-center">Quantity sold</h5>
                     <div style="font-size: 30px;" class="text-center">
-                        <span><i class="fa-solid fa-warehouse"></i></span>
+                        <span><i class="icon-check"></i></span>
                     </div>
                     <h3 class="text-center">{{ inventory.quantity_sold }}</h3>
                 </div>
@@ -35,21 +35,21 @@
 
             <div class="card m-4" style="width: 18rem">
                 <div class="card-body">
-                    <h5 class="cart-title text-center">Price per {{ inventory.name }}</h5>
+                    <h5 class="cart-title text-center">Unit Price</h5>
                     <div style="font-size: 30px;" class="text-center">
                         <span><i class="icon-usd"></i></span>
                     </div>
-                    <h3 class="text-center">{{ inventory.cost_per_item }}</h3>
+                    <h3 class="text-center"><sup>$</sup>{{ inventory.cost_per_item }}</h3>
                 </div>
             </div>
 
             <div class="card m-4" style="width: 18rem">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Sales or Revenue</h5>
+                    <h5 class="card-title text-center">Sales Amount</h5>
                     <div style="font-size: 30px;" class="text-center">
                         <span><i class="icon-usd"></i></span>
                     </div>
-                    <h3 class="text-center">{{ inventory.sales }}</h3>
+                    <h3 class="text-center"><sup>$</sup>{{ inventory.sales }}</h3>
                 </div>
             </div>
 

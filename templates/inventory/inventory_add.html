@@ -6,7 +6,7 @@
     {{ form.media }}
     <form method="POST">
         <fieldset>
-            <legend class="border-bottom pd-2 mb-4 text-center">Add Inventory Form</legend>
+            <legend class="border-bottom pd-2 mb-4 text-center">Add Product</legend>
             {% csrf_token %}
             <div class="form-group">
                 {{ form|crispy}}

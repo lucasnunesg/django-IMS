@@ -3,10 +3,11 @@
 {% load static %}
 {% block content %}
 <div class="content-section">
+<h3 class="h3-product-name">Product to be updated: {{ product_name }}</h3><br>
     {{ form.media }}
     <form method="POST">
         <fieldset>
-            <legend class="border-bottom pd-2 mb-4 text-center">Update Inventory Form</legend>
+            <legend class="border-bottom pd-2 mb-4 text-center">Fields to be updated:</legend>
             {% csrf_token %}
             <div class="form-group">
                 {{ form|crispy}}

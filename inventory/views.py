@@ -23,7 +23,8 @@ def inventory_list(request):
 def per_product_view(request, pk):
     inventory = get_object_or_404(Inventory, pk=pk)
     context = {
-        "inventory": inventory
+        "inventory": inventory,
+        "title": "Product View"
     }
 
     return render(request, "inventory/per_product.html", context=context)
@@ -41,7 +42,7 @@ def add_product(request):
             return redirect("/inventory/")
     else:
         add_form = AddInventoryForm()
-    return render(request, "inventory/inventory_add.html", {"form": add_form})
+    return render(request, "inventory/inventory_add.html", {"form": add_form, "title": "Manage Inventory"})
 
 
 @login_required
@@ -58,7 +59,7 @@ def update_inventory(request, pk):
     if request.method == "POST":
         updateForm = UpdateInventoryForm(data=request.POST)
         if updateForm.is_valid():
-            inventory.name = updateForm.data['name']
+            #inventory.name = updateForm.data['name']
             inventory.quantity_in_stock = updateForm.data['quantity_in_stock']
             inventory.quantity_sold = updateForm.data['quantity_sold']
             inventory.cost_per_item = updateForm.data['cost_per_item']
@@ -69,7 +70,7 @@ def update_inventory(request, pk):
     else:
         updateForm = UpdateInventoryForm(instance=inventory)
 
-    context = {"form": updateForm}
+    context = {"form": updateForm, "product_name": inventory.name}
     return render(request, "inventory/inventory_update.html", context=context)
 
 
@@ -109,6 +110,7 @@ def dashboard(request):
     context = {
         "sales_graph": sales_graph,
         "best_performing_product": best_performing_product,
-        "most_product_in_stock": most_product_in_stock
+        "most_product_in_stock": most_product_in_stock,
+        "title": "Product Dashboard"
     }
     return render(request, "inventory/dashboard.html", context=context)

@@ -1,4 +1,6 @@
 from django.urls import path, include
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 from .views import (inventory_list,
                     per_product_view,
                     add_product,
@@ -12,5 +14,6 @@ urlpatterns = [
     path("add_inventory/", add_product, name='add_inventory'),
     path("delete/<int:pk>", delete_inventory, name='delete_inventory'),
     path("update/<int:pk>", update_inventory, name='update_inventory'),
-    path("dashboard/", dashboard, name="dashboard")
+    path("dashboard/", dashboard, name="dashboard"),
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon.ico')))
 ]
