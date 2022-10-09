@@ -4,9 +4,11 @@ from django.contrib.auth.decorators import login_required
 from .forms import AddInventoryForm, UpdateInventoryForm
 from django.contrib import messages
 from django_pandas.io import read_frame
+from django.db import models
 import plotly
 import plotly.express as px
 import json
+import datetime
 
 
 @login_required
@@ -59,11 +61,11 @@ def update_inventory(request, pk):
     if request.method == "POST":
         updateForm = UpdateInventoryForm(data=request.POST)
         if updateForm.is_valid():
-            #inventory.name = updateForm.data['name']
             inventory.quantity_in_stock = updateForm.data['quantity_in_stock']
             inventory.quantity_sold = updateForm.data['quantity_sold']
             inventory.cost_per_item = updateForm.data['cost_per_item']
             inventory.sales = float(inventory.cost_per_item) * float(inventory.quantity_sold)
+            inventory.last_sales_date = models.DateField(default=datetime.date.today)
             inventory.save()
             messages.success(request, "Inventory updated!")
             return redirect(f"/inventory/per_product/{pk}")
@@ -80,7 +82,7 @@ def dashboard(request):
 
     df = read_frame(inventories)
 
-    sales_graph = df.groupby(by="last_sales_date", as_index=False, sort=False)['sales'].sum()
+    sales_graph = df.groupby(by="last_sales_date", as_index=False, sort=True)['sales'].sum()
     sales_graph = px.line(sales_graph, x=sales_graph.last_sales_date,
                           y=sales_graph.sales,
                           title="Sales Trend").update_layout(xaxis_title="Sales",

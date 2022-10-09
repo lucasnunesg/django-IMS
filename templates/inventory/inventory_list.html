@@ -1,15 +1,15 @@
 {% extends "../layout.html" %}
 {% block content %}
     <div class="content-section">
-        <table class="table table-striped table-bordered table-hover">
-            <thead class="thead-dark">
+        <table class="table table-striped table-borderless table-hover text-center">
+            <thead class="table-dark table-sm">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Quantity In Stock</th>
                     <th scope="col">Quantity Sold</th>
-                    <th scope="col">Cost per item</th>
-                    <th scope="col">Sales or Revenue</th>
+                    <th scope="col">Unit Price</th>
+                    <th scope="col">Sales Amount</th>
                     <th scope="col">Stock Date</th>
                     <th scope="col">Last Sales Date</th>
                 </tr>
@@ -21,8 +21,8 @@
                         <th scope="row">{{ inventory.name }}</th>
                         <th scope="row">{{ inventory.quantity_in_stock }}</th>
                         <th scope="row">{{ inventory.quantity_sold }}</th>
-                        <th scope="row">{{ inventory.cost_per_item }}</th>
-                        <th scope="row">{{ inventory.sales }}</th>
+                        <th scope="row">${{ inventory.cost_per_item }}</th>
+                        <th scope="row">${{ inventory.sales }}</th>
                         <th scope="row">{{ inventory.stock_date }}</th>
                         <th scope="row">{{ inventory.last_sales_date }}</th>
                     </tr>
