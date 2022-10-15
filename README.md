@@ -35,18 +35,13 @@ Main Features:
 ### Update Product
 ![Update Product](https://github.com/lucasnunesg/django-IMS/blob/main/assets/update_product.png)
 
-## Tecnologias Utilizadas
+## Frameworks/Libraries
 - Python
 - Django
 - Bootstrap
 - FontAwesome
 - plotly
 
-## Como Executar o Projeto
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id enim eu nunc sollicitudin accumsan id et massa. Nullam quis pretium massa. Maecenas ac viverra augue
-
-```pip install -r requirements.txt```
-
-## Autor
+## Author
 ##### Lucas Nunes Gomes
 https://www.linkedin.com/in/lucas-ngomes/
